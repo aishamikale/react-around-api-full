@@ -1,0 +1,31 @@
+.modal__image-button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-image: url(../../../images/close-icon.svg);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: center;
+    cursor: pointer;
+    position: absolute;
+    top: -26px;
+    right: -10px;
+}
+
+
+@media screen and (max-width: 958px) {
+    .modal__image-button {
+        top: -56px;
+        right: -6px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .modal__image-button {
+        width: 26px;
+        height: 26px;
+        top: -16px;
+        right: -2px;
+    }
+}
