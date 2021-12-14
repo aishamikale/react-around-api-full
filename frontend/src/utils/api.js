@@ -82,7 +82,7 @@ class Api {
   changeLikeCardStatus(cardId, like, token) {
     if (like) {
       return fetch(this._baseUrl + "/cards/likes/" + cardId, {
-        method: "PUT",
+        method: "DELETE",
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
