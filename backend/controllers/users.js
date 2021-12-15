@@ -25,7 +25,7 @@ module.exports.getUserId = (req, res, next) => {
       if (!userId) {
         throw new NotFoundError('User not found');
       }
-      res.status(200).send({ data: userId });
+      res.status(200).send(userId);
     })
     .catch(next);
 };
