@@ -14,7 +14,7 @@ module.exports.getUsers = (req, res, next) => {
       if (users === undefined) {
         throw new NotFoundError('Users not found');
       }
-      return res.status(200).send({ data: users });
+      res.status(200).send({ data: users });
     })
     .catch(next);
 };
@@ -24,8 +24,9 @@ module.exports.getUserId = (req, res, next) => {
     .then((userId) => {
       if (!userId) {
         throw new NotFoundError('User not found');
+      } else {
+        res.status(200).send(userId);
       }
-      return res.status(200).send(userId);
     })
     .catch(next);
 };
@@ -52,7 +53,7 @@ module.exports.login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, 'secreto', { expiresIn: '7d' });
-      return res.send({ token });
+      res.send({ token });
     })
     .catch(() => {
       throw new UnauthorizedError('Invalid email or passowrd');
@@ -67,7 +68,7 @@ module.exports.updateProfile = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('User not found');
       }
-      return res.status(200).send({ data: user });
+      res.status(200).send({ data: user });
     })
     .catch(next);
 };
@@ -79,7 +80,7 @@ module.exports.updateAvatar = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('User not found');
       }
-      return res.status(200).send({ data: user });
+      res.status(200).send({ data: user });
     })
     .catch(next);
 };
@@ -90,7 +91,7 @@ module.exports.getCurrentUser = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('User not found');
       }
-      return res.send(user._doc);
+      res.send(user._doc);
     })
     .catch(next);
 };
