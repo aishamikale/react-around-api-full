@@ -1,5 +1,9 @@
 // export const BASE_URL = 'https://register.nomoreparties.co';
-export const BASE_URL = 'https://api.aroundtheglobe.students.nomoreparties.site'
+export const BASE_URL =
+    process.env.NODE_ENV === 'production'
+        ? 'https://api.aroundtheglobe.students.nomoreparties.site'
+        : 'http://localhost:3000';
+
 const checkResponse = (res) => {
     if (!res.ok) {
         return Promise.reject(`Error: ${res.status}`);
