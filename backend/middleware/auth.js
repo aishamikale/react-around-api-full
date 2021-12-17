@@ -6,6 +6,7 @@ const UnauthorizedError = require('../errors/UnauthorizedError');
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
+  console.log(req.headers);
 
   // does header that start with 'Bearer exist?
   if (!authorization || !authorization.startsWith('Bearer ')) {
