@@ -7,8 +7,8 @@ require('dotenv').config();
 const { celebrate, Joi } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 
-const auth = require('./middleware/auth');
 const { login, createUser } = require('./controllers/users');
+const auth = require('./middleware/auth');
 const users = require('./routes/users');
 const cards = require('./routes/cards');
 const NotFoundError = require('./errors/NotFoundError');
@@ -42,17 +42,17 @@ app.post('/signup', celebrate({
     about: Joi.string().min(2).max(30),
     avatar: Joi.string(),
   }),
-}), createUser);
+}), auth, createUser);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
-}), login);
+}), auth, login);
 
 // middleware authrization
-app.use(auth);
+// app.use(auth);
 
 app.use('/users', users);
 app.use('/cards', cards);
