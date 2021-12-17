@@ -125,9 +125,11 @@ class Api {
 // });
 
 const api = new Api({
-  baseUrl: process.env.NODE_ENV === 'production'
-    ? 'https://api.aroundtheglobe.students.nomoreparties.site'
-    : 'http://localhost:3000',
+  baseUrl: 'https://api.aroundtheglobe.students.nomoreparties.site',
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  }
   // headers: {
   //   authorization: "0c109f26-b662-41c6-bcff-35a6cf5888c5",
   //   "Content-Type": "application/json"
