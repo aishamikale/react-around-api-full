@@ -33,9 +33,9 @@ class Api {
   }
 
   //get user info and cards from the server
-  getAppInfo() {
-    return Promise.all([this.getUsersInfo(), this.getInitialCards()])
-  }
+  // getAppInfo() {
+  //   return Promise.all([this.getUsersInfo(), this.getInitialCards()])
+  // }
 
   addCard({ name, link }, token) {
     return fetch(this._baseUrl + "/cards", {
