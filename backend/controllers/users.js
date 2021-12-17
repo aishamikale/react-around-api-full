@@ -22,7 +22,7 @@ module.exports.getUsers = (req, res, next) => {
 };
 
 module.exports.getUserId = (req, res, next) => {
-  User.findById(req.params.userId)
+  User.findById(req.params.id)
     .then((userId) => {
       if (!userId) {
         throw new NotFoundError('User not found');

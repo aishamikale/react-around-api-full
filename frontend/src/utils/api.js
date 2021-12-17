@@ -23,7 +23,7 @@ class Api {
   }
   //request user info from the server
   getUsersInfo(token) {
-    return fetch(`${this._baseUrl}/users/me`, {
+    return fetch(this._baseUrl + "/users/me", {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -126,10 +126,6 @@ class Api {
 
 const api = new Api({
   baseUrl: 'https://api.aroundtheglobe.students.nomoreparties.site',
-  headers: {
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json'
-  }
   // headers: {
   //   authorization: "0c109f26-b662-41c6-bcff-35a6cf5888c5",
   //   "Content-Type": "application/json"
