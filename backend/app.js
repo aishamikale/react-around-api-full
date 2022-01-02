@@ -65,17 +65,17 @@ app.get('*', () => {
   throw new NotFoundError('Requested Resource Not Found');
 });
 
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-  res
-    .status(statusCode)
-    .send({
-      message: statusCode === 500
-        ? 'An error occurred on the server'
-        : message,
-    });
-  next();
-});
+// app.use((err, req, res, next) => {
+//   const { statusCode = 500, message } = err;
+//   res
+//     .status(statusCode)
+//     .send({
+//       message: statusCode === 500
+//         ? 'An error occurred on the server'
+//         : message,
+//     });
+//   next();
+// });
 
 app.listen(PORT, () => {
   console.log('Server started on port' + PORT);
