@@ -95,8 +95,9 @@ module.exports.getCurrentUser = (req, res, next) => {
     .then((user) => {
       if (!user) {
         throw new NotFoundError('User not found');
+      } else {
+        return res.send(user._doc);
       }
-      res.send(user._doc);
     })
     .catch(next);
 };
