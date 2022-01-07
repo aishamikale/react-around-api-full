@@ -1,0 +1,19 @@
+html, body {
+  background-color: black;
+  height: 100%;
+  min-height: 100%;
+}
+
+@import url(./vendors/normalize.css);
+@import url(./vendors/fonts/fonts.css);
+@import url(./blocks/modal/modal.css);
+@import url(./blocks/modal/_open/modal_open.css);
+@import url(./blocks/form/form.css);
+@import url(./blocks/card/card.css);
+@import url(./blocks/card/__delete-button/_display/card__delete-button_display.css);
+@import url(./blocks/cards/cards.css);
+@import url(./blocks/footer/footer.css);
+@import url(./blocks/header/header.css);
+@import url(./blocks/logo/logo.css);
+@import url(./blocks/page/page.css);
+@import url(./blocks/profile/profile.css);

@@ -1,0 +1,17 @@
+.form__field {
+    color: #fff;
+    width: 100%;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400px;
+    line-height: 16.94px;
+    padding: 13px 0 13px 0;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    /* color: #fff; */
+}
+
+.form__field:focus {
+  outline: none;
+}
