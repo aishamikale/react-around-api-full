@@ -42,17 +42,17 @@ app.post('/signup', celebrate({
     about: Joi.string().min(2).max(30),
     avatar: Joi.string(),
   }),
-}), auth, createUser);
+}), createUser);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
-}), auth, login);
+}), login);
 
 // middleware authrization
-// app.use(auth);
+app.use(auth);
 
 app.use('/users', users);
 app.use('/cards', cards);
