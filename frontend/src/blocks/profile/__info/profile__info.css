@@ -1,0 +1,29 @@
+.profile__info {
+    margin-left: 32px;
+    max-width: 415px;
+    display: grid;
+    grid-template-columns: 373px 1fr;
+    grid-template-rows: auto;
+    grid-row-gap: 16px;
+    grid-column-gap: 18px;
+}
+
+@media screen and (max-width: 958px) {
+    .profile__info {
+        display: flex;
+        flex-direction: column;
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .profile__info {
+        display: grid;
+        max-width: 282px;
+        grid-template-columns: 196px 1fr;
+        grid-template-rows: auto;
+        grid-row-gap: 14px;
+        grid-column-gap: 10px;
+        margin: 0 auto;
+    }
+}
