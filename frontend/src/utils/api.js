@@ -78,11 +78,10 @@ class Api {
       .then(this._checkResponse)
   }
 
-  //add and remove likes
   changeLikeCardStatus(cardId, like, token) {
     if (like) {
       return fetch(this._baseUrl + "/cards/likes/" + cardId, {
-        method: "DELETE",
+        method: "PUT",
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'

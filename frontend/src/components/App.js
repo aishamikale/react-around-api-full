@@ -16,12 +16,9 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import api from "../utils/api";
 import * as auth from "../utils/auth.js";
 
-//need a state of isLoggedIn, setIsLoggedIn
-
 function App() {
   const history = useHistory();
 
-  //useState Hook - initial states and set states
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
@@ -35,35 +32,30 @@ function App() {
   const [isSuccessful, setIsSuccessful] = React.useState(false);
   const [token, setToken] = React.useState(localStorage.getItem("token"));
 
-
   React.useEffect(() => {
-    tokenCheck();
-  }, [])
-
-  React.useEffect(() => {
-    api.getUsersInfo()
-      .then((res) => {
-        setCurrentUser(res)
+    api.getUsersInfo(token)
+      .then((data) => {
+        setCurrentUser(data.user)
       })
       .catch((err) => {
         console.log(err)
       })
-  }, [])
+  }, [token, currentUser._id])
 
   React.useEffect(() => {
-    api.getInitialCards().then((data) => {
-      setCards(data);
+    api.getInitialCards(token).then((data) => {
+      setCards(data.data);
     })
       .catch((err) => {
         console.log(err)
       })
-  }, [])
+  }, [token])
 
-  // update user info-avatar, add cards
   function handleUpdateUser(info) {
-    api.editProfile(info)
-      .then((info) => {
-        setCurrentUser(info)
+    api.editProfile(info, token)
+      .then((res) => {
+        setCurrentUser(res)
+        console.log(currentUser.name);
       })
       .then(() => {
         setIsEditProfilePopupOpen(false);
@@ -74,9 +66,10 @@ function App() {
   }
 
   function handleUpdateAvatar(avatar) {
-    api.updateAvatar(avatar)
-      .then((avatar) => {
-        setCurrentUser(avatar)
+    api.updateAvatar(avatar, token)
+      .then((res) => {
+        setCurrentUser(res)
+        console.log(currentUser.avatar);
       })
       .then(() => {
         setIsEditAvatarPopupOpen(false)
@@ -103,8 +96,9 @@ function App() {
     //check if card was already liked
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    api.changeLikeCardStatus(card._id, !isLiked, token).then((newCard) => {
+      const { data } = newCard;
+      setCards((state) => state.map((c) => c._id === card._id ? data : c));
     })
       .catch((err) => {
         console.log(err)
@@ -169,6 +163,10 @@ function App() {
         setIsInfoToolTipOpen(true);
       })
   }
+
+  React.useEffect(() => {
+    tokenCheck();
+  }, [])
 
   function tokenCheck() {
     // const token = localStorage.getItem("token");
