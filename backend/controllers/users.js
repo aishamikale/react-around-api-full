@@ -45,8 +45,7 @@ module.exports.createUser = (req, res, next) => {
       about,
       avatar,
     }))
-    .then((user) => res.status(200).send(user))
-    // .catch((err) => res.status(400).send(err));
+    .then((user) => res.status(201).send(user))
     .catch(next);
 };
 
@@ -79,7 +78,8 @@ module.exports.getCurrentUser = (req, res, next) => {
 };
 
 module.exports.updateProfile = (req, res, next) => {
-  User.findByIdAndUpdate(req.user._id, { name: req.user.name, about: req.user.about },
+  const { name, about } = req.body;
+  User.findByIdAndUpdate(req.user._id, { name, about },
     { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
@@ -91,7 +91,8 @@ module.exports.updateProfile = (req, res, next) => {
 };
 
 module.exports.updateAvatar = (req, res, next) => {
-  User.findByIdAndUpdate(req.user._id, { avatar: req.user.avatar },
+  const { avatar } = req.body;
+  User.findByIdAndUpdate(req.user._id, { avatar },
     { new: true, runValidators: true })
     .then((user) => {
       if (!user) {

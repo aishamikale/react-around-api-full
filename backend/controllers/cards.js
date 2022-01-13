@@ -1,9 +1,8 @@
 const Card = require('../models/card');
 
-// const NotFoundError = require('../errors/NotFoundError');
+const NotFoundError = require('../errors/NotFoundError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
 const BadRequestError = require('../errors/BadRequestError');
-// const BadRequestError = require('../errors/BadRequestError');
 
 module.exports.getCards = (req, res, next) => {
   Card.find({})
@@ -17,11 +16,13 @@ module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
   Card.create({ name, link, owner: req.user._id })
     .then((card) => {
-      res.status(200).send({ data: card });
+      res.status(201).send({ data: card });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         throw new BadRequestError('Card cannot be created');
+      } else {
+        next(err);
       }
     })
     .catch(next);
@@ -31,7 +32,7 @@ module.exports.removeCard = (req, res, next) => {
   Card.findByIdAndRemove(req.params.cardId)
     .then((card) => {
       if (!card) {
-        throw new BadRequestError('Card cannot be deleted');
+        throw new NotFoundError('Card cannot be found');
       }
       res.status(200).send({ data: card });
     })
