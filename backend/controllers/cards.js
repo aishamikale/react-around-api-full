@@ -29,7 +29,7 @@ module.exports.createCard = (req, res, next) => {
 };
 
 module.exports.removeCard = (req, res, next) => {
-  Card.findByIdAndRemove(req.params.cardId)
+  Card.findByIdAndRemove(req.params.id)
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Card cannot be found');
