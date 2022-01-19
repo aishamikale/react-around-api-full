@@ -80,7 +80,7 @@ function App() {
   }
 
   function handleAddPlaceSubmit({ name, link }) {
-    api.addCard({ name, link })
+    api.addCard({ name, link }, token)
       .then((newCard) => {
         setCards([newCard, ...cards])
       })
