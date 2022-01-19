@@ -43,7 +43,7 @@ module.exports.likeCard = (req, res, next) => {
   Card.findByIdAndUpdate(req.params.cardId, { $addToSet: { likes: req.user._id } }, { new: true })
     .then((card) => {
       if (!card) {
-        throw new UnauthorizedError('You do not have permission to like this card');
+        throw new NotFoundError('Card not found');
       }
       res.status(200).send({ data: card });
     })
@@ -54,7 +54,7 @@ module.exports.dislikeCard = (req, res, next) => {
   Card.findByIdAndUpdate(req.params.cardId, { $pull: { likes: req.user._id } }, { new: true })
     .then((card) => {
       if (!card) {
-        throw new UnauthorizedError('You do not have permission to dislike this card');
+        throw new NotFoundError('Card not found');
       }
       res.status(200).send({ data: card });
     })
