@@ -41,22 +41,22 @@ module.exports.removeCard = (req, res, next) => {
 
 module.exports.likeCard = (req, res, next) => {
   Card.findByIdAndUpdate(req.params.cardId, { $addToSet: { likes: req.user._id } }, { new: true })
-    .then((user) => {
-      if (!user) {
+    .then((card) => {
+      if (!card) {
         throw new UnauthorizedError('You do not have permission to like this card');
       }
-      res.status(200).send({ data: user });
+      res.status(200).send({ data: card });
     })
     .catch(next);
 };
 
 module.exports.dislikeCard = (req, res, next) => {
   Card.findByIdAndUpdate(req.params.cardId, { $pull: { likes: req.user._id } }, { new: true })
-    .then((user) => {
-      if (!user) {
+    .then((card) => {
+      if (!card) {
         throw new UnauthorizedError('You do not have permission to dislike this card');
       }
-      res.status(200).send({ data: user });
+      res.status(200).send({ data: card });
     })
     .catch(next);
 };
