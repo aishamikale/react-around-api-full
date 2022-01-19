@@ -29,10 +29,10 @@ module.exports.createCard = (req, res, next) => {
 };
 
 module.exports.removeCard = (req, res, next) => {
-  Card.findByIdAndRemove(req.params.id)
+  Card.findByIdAndRemove(req.params.cardId)
     .then((card) => {
       if (!card) {
-        throw new NotFoundError('Card cannot be found');
+        throw new NotFoundError('Card cannot be deleted');
       }
       res.status(200).send({ data: card });
     })
@@ -40,7 +40,7 @@ module.exports.removeCard = (req, res, next) => {
 };
 
 module.exports.likeCard = (req, res, next) => {
-  Card.findByIdAndUpdate(req.params.id, { $addToSet: { likes: req.user._id } }, { new: true })
+  Card.findByIdAndUpdate(req.params.cardId, { $addToSet: { likes: req.user._id } }, { new: true })
     .then((user) => {
       if (!user) {
         throw new UnauthorizedError('You do not have permission to like this card');
@@ -51,7 +51,7 @@ module.exports.likeCard = (req, res, next) => {
 };
 
 module.exports.dislikeCard = (req, res, next) => {
-  Card.findByIdAndUpdate(req.params.id, { $pull: { likes: req.user._id } }, { new: true })
+  Card.findByIdAndUpdate(req.params.cardId, { $pull: { likes: req.user._id } }, { new: true })
     .then((user) => {
       if (!user) {
         throw new UnauthorizedError('You do not have permission to dislike this card');

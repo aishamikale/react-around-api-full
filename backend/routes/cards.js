@@ -26,7 +26,7 @@ cardsRoute.put('/:cardId/likes', celebrate({
   }),
 }), likeCard);
 
-cardsRoute.put('/:cardId/likes', celebrate({
+cardsRoute.delete('/:cardId/likes', celebrate({
   params: Joi.object().keys({
     cardId: Joi.string().hex().length(24),
   }),
