@@ -29,12 +29,17 @@ module.exports.createCard = (req, res, next) => {
 };
 
 module.exports.removeCard = (req, res, next) => {
-  Card.findByIdAndRemove(req.params.cardId)
+  Card.findById(req.params.cardId)
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Card cannot be deleted');
       }
-      res.status(200).send({ data: card });
+      if (req.user._id.toString() !== card.owner.toString()) {
+        throw new UnauthorizedError('You do not have permission to delete card');
+      }
+      return Card.remove(card).then(() => {
+        res.send({ data: card });
+      });
     })
     .catch(next);
 };
