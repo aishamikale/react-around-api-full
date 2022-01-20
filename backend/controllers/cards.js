@@ -41,7 +41,9 @@ module.exports.removeCard = (req, res, next) => {
         res.send({ data: card });
       });
     })
-    .catch(next);
+    .catch((err) => {
+      next(err, BadRequestError);
+    });
 };
 
 module.exports.likeCard = (req, res, next) => {
@@ -52,7 +54,9 @@ module.exports.likeCard = (req, res, next) => {
       }
       res.status(200).send({ data: card });
     })
-    .catch(next);
+    .catch((err) => {
+      next(err, BadRequestError);
+    });
 };
 
 module.exports.dislikeCard = (req, res, next) => {
@@ -63,5 +67,7 @@ module.exports.dislikeCard = (req, res, next) => {
       }
       res.status(200).send({ data: card });
     })
-    .catch(next);
+    .catch((err) => {
+      next(err, BadRequestError);
+    });
 };

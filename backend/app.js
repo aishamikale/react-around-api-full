@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
@@ -78,5 +79,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log('Server started on port' + PORT);
+  console.log(PORT);
 });

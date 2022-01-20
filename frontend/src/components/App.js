@@ -69,7 +69,6 @@ function App() {
     api.updateAvatar(avatar, token)
       .then((res) => {
         setCurrentUser(res)
-        console.log(currentUser.avatar);
       })
       .then(() => {
         setIsEditAvatarPopupOpen(false)

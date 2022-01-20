@@ -6,6 +6,7 @@ const User = require('../models/user');
 
 const NotFoundError = require('../errors/NotFoundError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
+const ConflictError = require('../errors/ConflictError');
 // const BadRequestError = require('../errors/BadRequestError');
 
 const salt = 10;
@@ -45,8 +46,14 @@ module.exports.createUser = (req, res, next) => {
       about,
       avatar,
     }))
-    .then((user) => res.status(201).send(user))
-    .catch(next);
+    .then((user) => res.status(201).send({ _id: user._id, email: user.email }))
+    .catch((err) => {
+      if (err.name === 'MongoError' && err.code === 11000) {
+        throw new ConflictError('This user already exists');
+      } else {
+        next(err);
+      }
+    });
 };
 
 module.exports.login = (req, res, next) => {
@@ -92,7 +99,7 @@ module.exports.updateProfile = (req, res, next) => {
 
 module.exports.updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
-  User.findByIdAndUpdate(req.user._id, { avatar },
+  User.findByIdAndUpdate(req.user._id, avatar,
     { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
