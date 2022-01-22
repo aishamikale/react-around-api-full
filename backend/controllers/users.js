@@ -99,7 +99,7 @@ module.exports.updateProfile = (req, res, next) => {
 
 module.exports.updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
-  User.findByIdAndUpdate(req.user._id, avatar,
+  User.findByIdAndUpdate(req.user._id, { avatar },
     { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
@@ -109,3 +109,16 @@ module.exports.updateAvatar = (req, res, next) => {
     })
     .catch(next);
 };
+
+// module.exports.updateAvatar = (req, res, next) => {
+//   const { avatar } = req.body;
+//   User.findByIdAndUpdate(req.user._id, avatar,
+//     { new: true, runValidators: true })
+//     .then((user) => {
+//       if (!user) {
+//         throw new NotFoundError('User not found');
+//       }
+//       res.status(200).send({ data: user });
+//     })
+//     .catch(next);
+// };

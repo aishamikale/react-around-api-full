@@ -55,7 +55,6 @@ function App() {
     api.editProfile(info, token)
       .then((res) => {
         setCurrentUser(res)
-        console.log(currentUser.name);
       })
       .then(() => {
         setIsEditProfilePopupOpen(false);
@@ -147,7 +146,6 @@ function App() {
   function handleRegister(email, password) {
     auth.register(email, password)
       .then((res) => {
-        console.log(res)
         if (res) {
           setIsSuccessful(true);
           setIsInfoToolTipOpen(true);
@@ -201,26 +199,6 @@ function App() {
         setIsInfoToolTipOpen(true);
       })
   }
-  // function handleLogin(password, email) {
-  //   auth.authorization(password, email)
-  //     .then((res) => {
-  //       if (!res) {
-  //         setLoggedIn(false);
-  //         setIsSuccessful(false);
-  //         setIsInfoToolTipOpen(true);
-  //         // history.push("/");
-  //       } if (res.err) {
-  //         setIsSuccessful(false);
-  //         setIsInfoToolTipOpen(true);
-  //       }
-  //       tokenCheck();
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       setIsSuccessful(false);
-  //       setIsInfoToolTipOpen(true);
-  //     })
-  // }
 
   function onSignOut() {
     localStorage.removeItem("token");
